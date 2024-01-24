@@ -95,10 +95,10 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
     val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.ROOT)
     val context = LocalContext.current
 
-    val coffeeDrinks =
+    val categoryList =
         arrayOf("Home Product", "EMIs/Bills", "Gifts", "Travelling", "Festival", "Fashion")
     var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf(coffeeDrinks[0]) }
+    var category by remember { mutableStateOf(categoryList[0]) }
 
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         if (showDatePicker) {
@@ -188,7 +188,7 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
             OutlinedTextField(
                 readOnly = true,
                 singleLine = true,
-                value = selectedText,
+                value = category,
                 onValueChange = {},
                 label = { Text(text = "Category", color = ColorUtils.textColor) },
                 modifier = Modifier
@@ -228,11 +228,11 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
                 onDismissRequest = { expanded = false },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                coffeeDrinks.forEach { item ->
+                categoryList.forEach { item ->
                     DropdownMenuItem(
                         text = { Text(text = item) },
                         onClick = {
-                            selectedText = item
+                            category = item
                             expanded = false
                         }
                     )
@@ -247,7 +247,8 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
                         title = title,
                         des = desc,
                         amount = amount.toFloat(),
-                        date = "${formatter.format(Date(selectedDate))}"
+                        date = formatter.format(Date(selectedDate)),
+                        category = category,
                     )
                 )
                 Toast.makeText(context, "Expense Added Successfully", Toast.LENGTH_SHORT).show()

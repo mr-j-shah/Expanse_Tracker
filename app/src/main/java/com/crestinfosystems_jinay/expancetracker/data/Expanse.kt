@@ -15,5 +15,7 @@ data class Expanse(
     @ColumnInfo("amount")
     val amount:Float,
     @ColumnInfo("date")
-    val date:String
+    val date:String,
+    @ColumnInfo("category")
+    val category: String
 )
