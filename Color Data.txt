@@ -1,0 +1,3 @@
+Splash screen background EEF8F7
+splash screen text color 438883 (spend smarter save more)
+
