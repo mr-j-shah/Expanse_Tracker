@@ -144,7 +144,7 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
         OutlinedTextField(
             enabled = false,
             singleLine = true,
-            value = "${formatter.format(Date(selectedDate))}",
+            value = formatter.format(Date(selectedDate)),
             onValueChange = {
 
             },

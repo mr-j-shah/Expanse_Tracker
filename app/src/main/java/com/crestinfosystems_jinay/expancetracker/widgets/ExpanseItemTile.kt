@@ -15,7 +15,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -72,7 +78,14 @@ fun expanseItem(expanse: Expanse, onClick: () -> Unit) {
                         )   // add a border (optional)
                 )
                 Spacer(modifier = Modifier.width(15.dp))
-                Column {
+                Column(
+                    modifier = Modifier.then(
+                        ComposeUtils.modifyDimensionsBasedOnScreenSize(
+                            baseWidth = 200.dp,
+                            baseHeight = 50.dp
+                        )
+                    ), verticalArrangement = Arrangement.Center
+                ) {
                     Text(
                         text = expanse.title,
                         fontWeight = FontWeight.ExtraBold,
@@ -89,17 +102,58 @@ fun expanseItem(expanse: Expanse, onClick: () -> Unit) {
                         fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 14F).sp,
                     )
                 }
+                Spacer(modifier = Modifier.width(15.dp))
+//                IconButton(onClick = { /*TODO*/ }) {
+//                    Icon(
+//                        imageVector = Icons.Default.Edit,
+//                        contentDescription = "",
+//                        tint = ColorUtils.subTextColor
+//                    )
+//                }
 
             }
+
+//            Spacer(modifier = Modifier.height(5.dp))
+//            Text(
+//                text = expanse.des,
+//                fontWeight = FontWeight.SemiBold,
+//                fontFamily = FontFamily.SansSerif,
+//                textAlign = TextAlign.Justify,
+//                fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 14F).sp,
+//                color = ColorUtils.subTextColor
+//            )
             Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = expanse.des,
-                fontWeight = FontWeight.SemiBold,
-                fontFamily = FontFamily.SansSerif,
-                textAlign = TextAlign.Justify,
-                fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 14F).sp,
-                color = ColorUtils.textColor
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    painter = painterResource(id = R.drawable.rupee_symbol),
+                    contentDescription = "",
+//                    tint = Color(0xFFE75450),
+                    tint = ColorUtils.primaryBackGroundColor,
+                    modifier = Modifier.then(
+                        ComposeUtils.modifyDimensionsBasedOnScreenSize(
+                            baseHeight = 20.dp,
+                            baseWidth = 20.dp
+                        )
+                    )
+                )
+                Spacer(
+                    modifier = Modifier.then(
+                        ComposeUtils.modifyDimensionsBasedOnScreenSize(
+                            baseHeight = 0.dp,
+                            baseWidth = 10.dp
+                        )
+                    )
+                )
+                Text(
+
+                    text = expanse.amount.toString(),
+                    fontWeight = FontWeight.SemiBold,
+                    fontFamily = FontFamily.Monospace,
+                    textAlign = TextAlign.Justify,
+                    fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 16F).sp,
+                    color = ColorUtils.textColor
+                )
+            }
         }
     }
 }
