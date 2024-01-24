@@ -44,56 +44,7 @@ fun StatisticScreen(viewModel: MainScreenViewModel) {
 
     LazyColumn() {
         items(expanseListData.value) { expanse ->
-            val dismissState = rememberDismissState(
-                confirmStateChange = {
-                    if (it == DismissValue.DismissedToEnd || it == DismissValue.DismissedToStart) {
-                        viewModel.deleteExpanse(expanse)
-                    }
-                    true
-                }
-            )
-            SwipeToDismiss(
-                state = dismissState,
-                background = {
-                    val color by animateColorAsState(
-                        targetValue = if (
-                            dismissState.dismissDirection == DismissDirection.EndToStart
-                            || dismissState.dismissDirection == DismissDirection.StartToEnd
-                        )
-                            ColorUtils.dismissColor
-                        else Color.Transparent,
-                        label = ""
-                    )
-                    Card(
-                        shape = RoundedCornerShape(15.dp),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 8.dp, start = 8.dp, end = 8.dp)
-                            .align(Alignment.CenterVertically),
-                        backgroundColor = color,
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .padding(16.dp)
-                                .fillMaxWidth(),
-                            horizontalAlignment =
-                            if (dismissState.dismissDirection == DismissDirection.EndToStart)
-                                Alignment.End
-                            else
-                                Alignment.Start
-                        ) {
-                            Icon(Icons.Default.Delete, contentDescription = null)
-                        }
-                    }
-                },
-                dismissThresholds = { FractionalThreshold(0.25f) },
-                directions = setOf(
-                    DismissDirection.EndToStart,
-                    DismissDirection.StartToEnd
-                ),
-            ) {
-                expanseItem(expanse = expanse) {}
-            }
+            expanseItem(expanse = expanse) {}
         }
     }
 }

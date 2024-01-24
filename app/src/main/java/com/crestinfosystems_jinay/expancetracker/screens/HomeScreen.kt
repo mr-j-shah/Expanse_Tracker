@@ -40,7 +40,7 @@ import com.crestinfosystems_jinay.expancetracker.widgets.AppBar
 fun HomeScreen(mainScreenVM: MainScreenViewModel) {
     Scaffold(
         topBar = {
-            AppBar(title = "Expanse tracker") {
+            AppBar(title = "Expense tracker") {
             }
 
         },

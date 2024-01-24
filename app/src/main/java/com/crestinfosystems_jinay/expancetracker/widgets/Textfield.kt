@@ -9,10 +9,13 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.crestinfosystems_jinay.expancetracker.utils.ColorUtils
+import com.crestinfosystems_jinay.expancetracker.utils.ComposeUtils
 
 @Composable
 fun textFields(
@@ -28,6 +31,7 @@ fun textFields(
             onChange(it)
         },
         label = { Text(text = lable, color = ColorUtils.textColor) },
+        textStyle = TextStyle( fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 14F).sp,),
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 15.dp),

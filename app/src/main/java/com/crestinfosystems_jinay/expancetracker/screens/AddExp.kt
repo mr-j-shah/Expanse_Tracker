@@ -1,8 +1,7 @@
 package com.crestinfosystems_jinay.expancetracker.screens
 
 import android.widget.Toast
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 
@@ -16,17 +15,23 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ExposedDropdownMenuBox
+import androidx.compose.material.ExposedDropdownMenuDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
+import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DisplayMode
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberDatePickerState
 
@@ -40,7 +45,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -59,7 +67,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun AddExpanse(viewModel: MainScreenViewModel) {
     val calendar = Calendar.getInstance()
@@ -85,7 +93,14 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
         mutableStateOf(0.0)
     }
     val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.ROOT)
-    Column(modifier = Modifier.fillMaxSize()) {
+    val context = LocalContext.current
+
+    val coffeeDrinks =
+        arrayOf("Home Product", "EMIs/Bills", "Gifts", "Travelling", "Festival", "Fashion")
+    var expanded by remember { mutableStateOf(false) }
+    var selectedText by remember { mutableStateOf(coffeeDrinks[0]) }
+
+    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         if (showDatePicker) {
             DatePickerDialog(
                 onDismissRequest = {
@@ -139,9 +154,14 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
                 .padding(horizontal = 15.dp),
             trailingIcon = {
                 IconButton(onClick = { showDatePicker = true }) {
-                    Icon(imageVector = Icons.Default.DateRange, contentDescription = "", tint = ColorUtils.textColor)
+                    Icon(
+                        imageVector = Icons.Default.DateRange,
+                        contentDescription = "",
+                        tint = ColorUtils.textColor
+                    )
                 }
             },
+            textStyle = TextStyle( fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 14F).sp,),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 disabledBorderColor = ColorUtils.secondaryBakgroundColor,
                 disabledTextColor = ColorUtils.textColor,
@@ -155,7 +175,71 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
             shape = RoundedCornerShape(15.dp),
         )
         Spacer(modifier = Modifier.height(15.dp))
-
+        ExposedDropdownMenuBox(
+            expanded = expanded,
+            onExpandedChange = {
+                expanded = !expanded
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp)
+                .align(Alignment.CenterHorizontally),
+        ) {
+            OutlinedTextField(
+                readOnly = true,
+                singleLine = true,
+                value = selectedText,
+                onValueChange = {},
+                label = { Text(text = "Category", color = ColorUtils.textColor) },
+                modifier = Modifier
+                    .fillMaxWidth(),
+                textStyle = TextStyle( fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 14F).sp,),
+                trailingIcon = {
+                    IconButton(
+                        onClick = { expanded = true },
+                        modifier = Modifier.clearAndSetSemantics { }) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowDropDown,
+                            contentDescription = "",
+                            modifier = Modifier.rotate(
+                                if (expanded)
+                                    180f
+                                else
+                                    360f
+                            ),
+                            tint = ColorUtils.textColor
+                        )
+                    }
+                },
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    disabledBorderColor = ColorUtils.secondaryBakgroundColor,
+                    disabledTextColor = ColorUtils.textColor,
+                    textColor = ColorUtils.textColor,
+                    focusedBorderColor = ColorUtils.secondaryBakgroundColor,
+                    focusedLabelColor = ColorUtils.secondaryBakgroundColor,
+                    unfocusedBorderColor = ColorUtils.secondaryBakgroundColor,
+                    unfocusedLabelColor = ColorUtils.secondaryBakgroundColor,
+                    cursorColor = ColorUtils.secondaryBakgroundColor
+                ),
+                shape = RoundedCornerShape(15.dp),
+            )
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                coffeeDrinks.forEach { item ->
+                    DropdownMenuItem(
+                        text = { Text(text = item) },
+                        onClick = {
+                            selectedText = item
+                            expanded = false
+                        }
+                    )
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(15.dp))
         Button(
             onClick = {
                 viewModel.addExpanse(
@@ -166,6 +250,7 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
                         date = "${formatter.format(Date(selectedDate))}"
                     )
                 )
+                Toast.makeText(context, "Expense Added Successfully", Toast.LENGTH_SHORT).show()
                 viewModel.changeScreen(MainScreenWidget.Stetestic)
             },
             modifier = Modifier
