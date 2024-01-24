@@ -21,4 +21,9 @@ class ExpanseRepo(private val expanseDAO: ExpanseDAO) {
     suspend fun updateExpanse(expanse: Expanse){
         expanseDAO.updateAExpanse(expanse)
     }
+
+    suspend fun deleteAllExpanse(){
+        expanseDAO.deleteAll()
+    }
+
 }

@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.crestinfosystems_jinay.expancetracker.screens.HomeScreen
+import com.crestinfosystems_jinay.expancetracker.screens.WishListScreen
 import com.crestinfosystems_jinay.expancetracker.screens.splashScreen
 import com.crestinfosystems_jinay.expancetracker.viewModel.MainScreenViewModel
 
@@ -18,7 +19,10 @@ fun Navigation() {
             splashScreen(navController = navController)
         }
         composable(route = ScreenRoute.HomeScreen.route){
-            HomeScreen(viewModel)
+            HomeScreen(viewModel,navController = navController)
+        }
+        composable(route = ScreenRoute.WishList.route){
+            WishListScreen()
         }
     }
 }

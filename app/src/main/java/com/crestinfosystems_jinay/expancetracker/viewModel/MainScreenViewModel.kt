@@ -44,4 +44,10 @@ class MainScreenViewModel(
             expanseRepo.deleteExpanse(expanse)
         }
     }
+
+    fun deleteAll(){
+        viewModelScope.launch {
+            expanseRepo.deleteAllExpanse()
+        }
+    }
 }
