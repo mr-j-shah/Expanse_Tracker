@@ -2,9 +2,12 @@ package com.crestinfosystems_jinay.expancetracker
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.crestinfosystems_jinay.expancetracker.screens.AddUpdataeDetail
 import com.crestinfosystems_jinay.expancetracker.screens.HomeScreen
 import com.crestinfosystems_jinay.expancetracker.screens.WishListScreen
 import com.crestinfosystems_jinay.expancetracker.screens.splashScreen
@@ -22,7 +25,19 @@ fun Navigation() {
             HomeScreen(viewModel,navController = navController)
         }
         composable(route = ScreenRoute.WishList.route){
-            WishListScreen()
+            WishListScreen(navController = navController, viewModel = viewModel)
+        }
+        composable(ScreenRoute.AddWishScreen.route + "/{id}",
+            arguments = listOf(
+                navArgument("id") {
+                    type = NavType.LongType
+                    defaultValue = 0L
+                    nullable = false
+                }
+            )
+        ) {
+            val id = if (it.arguments != null) it.arguments!!.getLong("id") else 0L
+            AddUpdataeDetail(id = id, navController, viewModel)
         }
     }
 }

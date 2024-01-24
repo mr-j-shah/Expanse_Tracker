@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.crestinfosystems_jinay.expancetracker.screens.splashScreen
+
 import com.crestinfosystems_jinay.expancetracker.ui.theme.ExpanceTrackerTheme
 
 class MainActivity : ComponentActivity() {

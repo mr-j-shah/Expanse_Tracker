@@ -19,3 +19,14 @@ data class Expanse(
     @ColumnInfo("category")
     val category: String
 )
+@Entity(tableName = "Wish-List")
+data class Wish(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0L,
+    @ColumnInfo(name = "wishDesc")
+    val desc: String = "",
+    @ColumnInfo(name = "wishTitle")
+    val title: String = "",
+    @ColumnInfo(name = "isComplete")
+    val isDone :Boolean = false
+)

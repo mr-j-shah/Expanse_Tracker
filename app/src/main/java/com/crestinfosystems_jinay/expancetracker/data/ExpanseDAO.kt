@@ -28,4 +28,21 @@ abstract class ExpanseDAO{
 
     @Query("DELETE FROM `expanse-table`")
     abstract suspend fun deleteAll()
+
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    abstract suspend fun addWish(wishEntity:Wish)
+
+    // Loads all wishes from Table
+    @Query("Select * FROM `Wish-List`")
+    abstract fun getAllWishes() : Flow<List<Wish>>
+
+    @Delete()
+    abstract suspend fun deleteWish(wishEntity: Wish)
+
+    @Update
+    abstract suspend fun updateAwish(wishEntity: Wish)
+
+    @Query("Select * FROM `Wish-List` where id=:id")
+    abstract fun getAWishById(id:Long):Flow<Wish>
 }
