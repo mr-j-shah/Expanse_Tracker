@@ -1,5 +1,7 @@
 package com.crestinfosystems_jinay.expancetracker
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
@@ -15,16 +17,25 @@ import com.crestinfosystems_jinay.expancetracker.viewModel.MainScreenViewModel
 
 @Composable
 fun Navigation() {
-    val viewModel : MainScreenViewModel = viewModel()
+    val viewModel: MainScreenViewModel = viewModel()
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = ScreenRoute.HomeScreen.route){
-        composable(route = ScreenRoute.SplashScreen.route){
+    NavHost(navController = navController,
+        startDestination = ScreenRoute.HomeScreen.route,
+        enterTransition = {
+            // you can change whatever you want transition
+            EnterTransition.None
+        },
+        exitTransition = {
+            // you can change whatever you want transition
+            ExitTransition.None
+        }) {
+        composable(route = ScreenRoute.SplashScreen.route) {
             splashScreen(navController = navController)
         }
-        composable(route = ScreenRoute.HomeScreen.route){
-            HomeScreen(viewModel,navController = navController)
+        composable(route = ScreenRoute.HomeScreen.route) {
+            HomeScreen(viewModel, navController = navController)
         }
-        composable(route = ScreenRoute.WishList.route){
+        composable(route = ScreenRoute.WishList.route) {
             WishListScreen(navController = navController, viewModel = viewModel)
         }
         composable(ScreenRoute.AddWishScreen.route + "/{id}",

@@ -59,13 +59,14 @@ fun HomeScreen(mainScreenVM: MainScreenViewModel, navController: NavController) 
                     .background(color = ColorUtils.secondaryBakgroundColor)
                     .padding(16.dp)
             ) {
-                DrawerTile(id = R.drawable.delete, onClick = {
-//                    mainScreenVM.deleteAll()
-                }, title = "Delete All Expanse")
+
                 DrawerTile(id = R.drawable.wish_list, onClick = {
                     navController.navigate(ScreenRoute.WishList.route)
                 }, title = "Wish List")
-                // Add more drawer items as needed
+                DrawerTile(id = R.drawable.delete, onClick = {
+//                    mainScreenVM.deleteAll()
+                }, title = "Delete All Expanse")
+
             }
         },
         scaffoldState = scaffoldState,

@@ -162,7 +162,7 @@ fun WishListScreen(navController: NavController, viewModel: MainScreenViewModel)
                     .padding(16.dp),
                 shape = RoundedCornerShape(15.dp),
             )
-            Spacer(modifier = Modifier.height(10.dp))
+
             LazyColumn() {
 
                 items(wishListData.value, key = { wish -> wish.id }) { wish ->

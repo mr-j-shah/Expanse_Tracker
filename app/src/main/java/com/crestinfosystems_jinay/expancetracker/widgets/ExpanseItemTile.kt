@@ -35,7 +35,7 @@ fun expanseItem(expanse: Expanse, onClick: () -> Unit) {
         shape = RoundedCornerShape(15.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 10.dp, start = 8.dp, end = 8.dp)
+            .padding(top = 5.dp, start = 8.dp, end = 8.dp)
             .clickable {
                 onClick()
             },
