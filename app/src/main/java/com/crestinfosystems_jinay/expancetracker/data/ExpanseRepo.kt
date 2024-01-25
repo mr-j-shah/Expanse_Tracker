@@ -31,7 +31,7 @@ class ExpanseRepo(private val expanseDAO: ExpanseDAO) {
     }
 
     fun getAllWishes(): Flow<List<Wish>> = expanseDAO.getAllWishes()
-
+    fun getTotalExpanse() : Flow<Float> = expanseDAO.getExpanseTotal()
     fun getWish(id: Long): Flow<Wish> {
         return expanseDAO.getAWishById(id)
     }

@@ -20,6 +20,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -52,7 +53,7 @@ fun DashboardScreen(viewModel: MainScreenViewModel) {
                     color = Color.Blue, modifier = Modifier
                         .width(2.dp)
                 )
-                Text(text = "Value", color = ColorUtils.textColor)
+                Text(text = viewModel.getTotalExpanse.collectAsState(initial = 0F).value.toString(), color = ColorUtils.textColor)
             }
         }
         Spacer(modifier = Modifier.height(10.dp))

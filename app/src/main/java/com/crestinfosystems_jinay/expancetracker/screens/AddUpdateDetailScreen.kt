@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Checkbox
@@ -65,6 +67,7 @@ fun AddUpdataeDetail(
     }
 
     Scaffold(
+        
         contentColor = ColorUtils.primaryBackGroundColor,
         topBar = {
             AppBar(
@@ -83,7 +86,8 @@ fun AddUpdataeDetail(
         Column(
             modifier = Modifier
                 .padding(it)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
 
@@ -92,11 +96,11 @@ fun AddUpdataeDetail(
             Spacer(modifier = Modifier.height(10.dp))
             textFields(viewModel.wishTitle, { changeVal ->
                 viewModel.onWishTitleChange(changeVal)
-            }, "Title",enable = !viewModel.wishDone)
+            }, "Title", enable = !viewModel.wishDone)
             Spacer(modifier = Modifier.height(10.dp))
             textFields(viewModel.wishDesc, { changeVal ->
                 viewModel.onWishDescChange(changeVal)
-            }, "Description",enable = !viewModel.wishDone)
+            }, "Description", enable = !viewModel.wishDone)
             Spacer(modifier = Modifier.height(10.dp))
             if (id != 0L) {
                 Row(

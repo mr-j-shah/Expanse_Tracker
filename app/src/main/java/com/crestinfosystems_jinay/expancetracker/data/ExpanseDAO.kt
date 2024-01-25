@@ -25,11 +25,12 @@ abstract class ExpanseDAO{
 
     @Query("Select * FROM `expanse-table` where id=:id")
     abstract fun getAExpanseById(id:Long): Flow<Expanse>
-
+    @Query("SELECT SUM(amount) FROM `expanse-table`")
+    abstract fun getExpanseTotal(): Flow<Float>
     @Query("DELETE FROM `expanse-table`")
     abstract suspend fun deleteAll()
 
-
+    // Wish List Table
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract suspend fun addWish(wishEntity:Wish)
 

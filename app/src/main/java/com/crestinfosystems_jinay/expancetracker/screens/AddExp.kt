@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.ExperimentalMaterialApi
@@ -88,7 +90,14 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
     var expanded by remember { mutableStateOf(false) }
     var category by remember { mutableStateOf(categoryList[0]) }
 
-    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(
+                rememberScrollState(),
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         if (showDatePicker) {
             DatePickerDialog(
                 onDismissRequest = {
@@ -149,7 +158,7 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
                     )
                 }
             },
-            textStyle = TextStyle( fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 14F).sp,),
+            textStyle = TextStyle(fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 14F).sp),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 disabledBorderColor = ColorUtils.secondaryBakgroundColor,
                 disabledTextColor = ColorUtils.textColor,
@@ -181,7 +190,11 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
                 label = { Text(text = "Category", color = ColorUtils.textColor) },
                 modifier = Modifier
                     .fillMaxWidth(),
-                textStyle = TextStyle( fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 14F).sp,),
+                textStyle = TextStyle(
+                    fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(
+                        baseSize = 14F
+                    ).sp,
+                ),
                 trailingIcon = {
                     IconButton(
                         onClick = { expanded = true },
