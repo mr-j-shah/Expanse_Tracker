@@ -55,7 +55,7 @@ class MainScreenViewModel(
     }
     lateinit var getAllExpanse : Flow<List<Expanse>>
     lateinit var getAllWishes : Flow<List<Wish>>
-    lateinit var getTotalExpanse : Flow<Float>
+    lateinit var getTotalExpanse : Flow<Float?>
     init {
         viewModelScope.launch {
             getAllExpanse = expanseRepo.getAllExpanse()

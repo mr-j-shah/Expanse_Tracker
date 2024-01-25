@@ -79,7 +79,7 @@ fun DashboardScreen(viewModel: MainScreenViewModel,navController: NavController)
                         .background(ColorUtils.subTextColor)
                 )
                 Text(
-                    text = viewModel.getTotalExpanse.collectAsState(initial = 0F).value.toString(),
+                    text = (viewModel.getTotalExpanse.collectAsState(initial = 0F).value?:0f).toString(),
                     color = ColorUtils.textColor,
                     modifier = Modifier.then(
                         ComposeUtils
