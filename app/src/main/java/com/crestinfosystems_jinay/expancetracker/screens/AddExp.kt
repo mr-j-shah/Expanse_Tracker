@@ -122,7 +122,7 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
         Spacer(modifier = Modifier.height(10.dp))
         textFields(value = desc, lable = "Description", onChange = {
             desc = it
-        }, keyboardType = KeyboardType.Text)
+        }, keyboardType = KeyboardType.Text, minLine = 5)
         Spacer(modifier = Modifier.height(10.dp))
         textFields(value = amount.toString(), lable = "Amount", onChange = {
             amount = it

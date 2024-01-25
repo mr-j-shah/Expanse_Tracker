@@ -19,22 +19,26 @@ import com.crestinfosystems_jinay.expancetracker.utils.ComposeUtils
 
 @Composable
 fun textFields(
+    enable:Boolean = true,
     value: String,
     onChange: (String) -> Unit,
     lable: String,
-    keyboardType: KeyboardType
+    keyboardType: KeyboardType,
+    minLine:Int = 1,
+    modifier:Modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 15.dp),
 ) {
     OutlinedTextField(
-        singleLine = true,
+        enabled = enable,
+        minLines = minLine,
         value = value,
         onValueChange = {
             onChange(it)
         },
         label = { Text(text = lable, color = ColorUtils.textColor) },
         textStyle = TextStyle( fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 14F).sp,),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 15.dp),
+        modifier = modifier,
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType,imeAction = ImeAction.Done),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             textColor = ColorUtils.textColor,

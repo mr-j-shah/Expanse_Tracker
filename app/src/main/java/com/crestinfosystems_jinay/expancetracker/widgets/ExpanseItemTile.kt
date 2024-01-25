@@ -156,7 +156,10 @@ fun expanseItem(expanse: Expanse, onClick: () -> Unit, isExpanded: Boolean, onTo
                 Text(
                     "Additional content for ${expanse.des}", modifier = Modifier
                         .padding(16.dp),
-                    color = ColorUtils.textColor
+                    color = ColorUtils.textColor,
+
+                    textAlign = TextAlign.Justify,
+                    fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 14F).sp,
                 )
 
             }

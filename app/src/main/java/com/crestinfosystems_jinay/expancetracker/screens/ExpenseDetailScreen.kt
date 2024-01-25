@@ -1,5 +1,6 @@
 package com.crestinfosystems_jinay.expancetracker.screens
 
+import android.widget.Toast
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.DismissDirection
 import androidx.compose.material.DismissValue
@@ -35,11 +38,13 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.rememberDismissState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,6 +62,7 @@ import androidx.navigation.NavController
 import com.crestinfosystems_jinay.expancetracker.R
 import com.crestinfosystems_jinay.expancetracker.ScreenRoute
 import com.crestinfosystems_jinay.expancetracker.data.Expanse
+import com.crestinfosystems_jinay.expancetracker.model.MainScreenWidget
 import com.crestinfosystems_jinay.expancetracker.utils.ColorUtils
 import com.crestinfosystems_jinay.expancetracker.utils.ComposeUtils
 import com.crestinfosystems_jinay.expancetracker.viewModel.MainScreenViewModel
@@ -65,6 +71,8 @@ import com.crestinfosystems_jinay.expancetracker.widgets.CategoryIcon
 import com.crestinfosystems_jinay.expancetracker.widgets.wishItem
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
+import java.util.Date
 
 @Composable
 fun ExpanseDetailScreen(
@@ -72,6 +80,10 @@ fun ExpanseDetailScreen(
     viewModel: MainScreenViewModel,
     navController: NavController
 ) {
+    val snackMessage = remember {
+        mutableStateOf("")
+    }
+    val scope = rememberCoroutineScope()
     var changeTitle by remember {
         mutableStateOf(expanse.title)
     }
@@ -81,7 +93,9 @@ fun ExpanseDetailScreen(
     var enableToChange by remember {
         mutableStateOf(false)
     }
+    val scffoldState = rememberScaffoldState()
     Scaffold(
+        scaffoldState = scffoldState,
         topBar = {
             AppBar(
                 title = "Expense",
@@ -198,7 +212,7 @@ fun ExpanseDetailScreen(
                             enableToChange = !enableToChange
                         }) {
                             Icon(
-                                imageVector = if(enableToChange) Icons.Default.Close else Icons.Default.Edit,
+                                imageVector = if (enableToChange) Icons.Default.Close else Icons.Default.Edit,
                                 contentDescription = "",
                                 tint = ColorUtils.primaryBackGroundColor,
                                 modifier = Modifier.then(
@@ -214,6 +228,7 @@ fun ExpanseDetailScreen(
 
                 }
                 Spacer(modifier = Modifier.height(10.dp))
+
                 OutlinedTextField(
                     enabled = enableToChange,
                     singleLine = true,
@@ -222,11 +237,18 @@ fun ExpanseDetailScreen(
 
                     },
                     label = { Text(text = "Title", color = ColorUtils.textColor) },
-                    textStyle = TextStyle( fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 14F).sp,),
+                    textStyle = TextStyle(
+                        fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(
+                            baseSize = 14F
+                        ).sp,
+                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 5.dp, start = 8.dp, end = 8.dp),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,imeAction = ImeAction.Done),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Done
+                    ),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         textColor = ColorUtils.textColor,
                         focusedBorderColor = ColorUtils.secondaryBakgroundColor,
@@ -238,29 +260,64 @@ fun ExpanseDetailScreen(
                     shape = RoundedCornerShape(15.dp),
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                OutlinedTextField(
-                    enabled = enableToChange,
-                    minLines = 5,
-                    value = expanse.des,
-                    onValueChange = {
-
+                com.crestinfosystems_jinay.expancetracker.widgets.textFields(
+                    value = changeDes,
+                    lable = "Description",
+                    onChange = { value ->
+                        changeDes = value
                     },
-                    label = { Text(text = "Description", color = ColorUtils.textColor) },
-                    textStyle = TextStyle( fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 14F).sp,),
+                    keyboardType = KeyboardType.Text,
+                    minLine = 5,
+                    enable = enableToChange,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 5.dp, start = 8.dp, end = 8.dp),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text,imeAction = ImeAction.Done),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        textColor = ColorUtils.textColor,
-                        focusedBorderColor = ColorUtils.secondaryBakgroundColor,
-                        focusedLabelColor = ColorUtils.secondaryBakgroundColor,
-                        unfocusedBorderColor = ColorUtils.secondaryBakgroundColor,
-                        unfocusedLabelColor = ColorUtils.secondaryBakgroundColor,
-                        cursorColor = ColorUtils.secondaryBakgroundColor
-                    ),
-                    shape = RoundedCornerShape(15.dp),
+                        .padding(top = 5.dp, start = 8.dp, end = 8.dp)
                 )
+                if (enableToChange) {
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Button(
+                        onClick = {
+
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 5.dp, start = 8.dp, end = 8.dp)
+                            .then(ComposeUtils.modifyDimensionsBasedOnScreenSize(baseHeight = 40.dp)),
+                        shape = RoundedCornerShape(15.dp),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = ColorUtils.secondaryBakgroundColor)
+                    ) {
+                        Text(
+                            "Update Expanse",
+                            color = Color.White,
+                            style = TextStyle(fontSize = 18.sp)
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(15.dp))
+                Button(
+                    onClick = {
+                        viewModel.deleteExpanse(
+                            expanse
+                        )
+                        snackMessage.value = "Expense has been Deleted"
+                        scope.launch {
+                            scffoldState.snackbarHostState.showSnackbar(snackMessage.value)
+                            navController.popBackStack()
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 5.dp, start = 8.dp, end = 8.dp)
+                        .then(ComposeUtils.modifyDimensionsBasedOnScreenSize(baseHeight = 40.dp)),
+                    shape = RoundedCornerShape(15.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = ColorUtils.dismissColor)
+                ) {
+                    Text(
+                        "Delete Expanse",
+                        color = Color.White,
+                        style = TextStyle(fontSize = 18.sp)
+                    )
+                }
             }
         }
     }
