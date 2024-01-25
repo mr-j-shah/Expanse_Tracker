@@ -9,7 +9,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.crestinfosystems_jinay.expancetracker.data.Expanse
 import com.crestinfosystems_jinay.expancetracker.screens.AddUpdataeDetail
+import com.crestinfosystems_jinay.expancetracker.screens.ExpanseDetailScreen
 import com.crestinfosystems_jinay.expancetracker.screens.HomeScreen
 import com.crestinfosystems_jinay.expancetracker.screens.WishListScreen
 import com.crestinfosystems_jinay.expancetracker.screens.splashScreen
@@ -29,9 +31,9 @@ fun Navigation() {
             // you can change whatever you want transition
             ExitTransition.None
         }) {
-        composable(route = ScreenRoute.SplashScreen.route) {
-            splashScreen(navController = navController)
-        }
+//        composable(route = ScreenRoute.SplashScreen.route) {
+//            splashScreen(navController = navController)
+//        }
         composable(route = ScreenRoute.HomeScreen.route) {
             HomeScreen(viewModel, navController = navController)
         }
@@ -49,6 +51,19 @@ fun Navigation() {
         ) {
             val id = if (it.arguments != null) it.arguments!!.getLong("id") else 0L
             AddUpdataeDetail(id = id, navController, viewModel)
+        }
+        composable(ScreenRoute.ExpenseDetailScreen.route) {
+            val expanse: Expanse =
+                navController.previousBackStackEntry?.savedStateHandle?.get(RouteBackStackKey.Expense.key)
+                    ?: Expanse(
+                        id = 0,
+                        title = "Null",
+                        des = "Null",
+                        0F,
+                        date = "null",
+                        category = ""
+                    )
+            ExpanseDetailScreen(expanse = expanse, viewModel = viewModel,navController = navController)
         }
     }
 }

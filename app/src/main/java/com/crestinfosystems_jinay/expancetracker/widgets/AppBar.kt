@@ -53,7 +53,8 @@ fun AppBar(
             backgroundColor = ColorUtils.primaryBackGroundColor
 
         )
-    } else {
+    }
+    else{
         TopAppBar(
             navigationIcon = {
                 IconButton(onClick = {

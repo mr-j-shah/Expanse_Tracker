@@ -1,5 +1,6 @@
 package com.crestinfosystems_jinay.expancetracker.screens
 
+import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import androidx.compose.foundation.Image
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -29,12 +31,15 @@ import com.crestinfosystems_jinay.expancetracker.utils.ColorUtils
 import com.crestinfosystems_jinay.expancetracker.utils.ComposeUtils
 
 @Composable
-fun splashScreen(navController: NavHostController) {
-    Handler(Looper.getMainLooper()).postDelayed({
-        // Navigate to the main content after the delay
-        navController.popBackStack(ScreenRoute.SplashScreen.route, true)
-        navController.navigate(ScreenRoute.HomeScreen.route)
-    }, 5000)
+fun splashScreen() {
+//    Handler(Looper.getMainLooper()).postDelayed({
+//        // Navigate to the main content after the delay
+//        navController.popBackStack(ScreenRoute.SplashScreen.route, true)
+//        navController.navigate(ScreenRoute.HomeScreen.route)
+//    }, 5000)
+    LaunchedEffect(key1 = true){
+
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()

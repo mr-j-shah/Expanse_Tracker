@@ -86,7 +86,7 @@ fun HomeScreen(mainScreenVM: MainScreenViewModel, navController: NavController) 
             when (mainScreenVM.screen.value.screenState) {
                 MainScreenWidget.Dashboard -> DashboardScreen(viewModel = mainScreenVM)
                 MainScreenWidget.Add -> AddExpanse(viewModel = mainScreenVM)
-                MainScreenWidget.Stetestic -> StatisticScreen(viewModel = mainScreenVM)
+                MainScreenWidget.Stetestic -> StatisticScreen(viewModel = mainScreenVM, navController = navController)
             }
         }
     }

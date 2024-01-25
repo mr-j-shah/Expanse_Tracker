@@ -39,6 +39,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.crestinfosystems_jinay.expancetracker.RouteBackStackKey
+import com.crestinfosystems_jinay.expancetracker.ScreenRoute
 import com.crestinfosystems_jinay.expancetracker.data.Expanse
 import com.crestinfosystems_jinay.expancetracker.utils.ColorUtils
 import com.crestinfosystems_jinay.expancetracker.viewModel.MainScreenViewModel
@@ -48,7 +51,8 @@ import kotlinx.coroutines.flow.flowOf
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun StatisticScreen(viewModel: MainScreenViewModel) {
+fun StatisticScreen(viewModel: MainScreenViewModel, navController: NavController) {
+    var expandedItemId by remember { mutableStateOf<Long?>(null) }
     Column {
         var searchText by remember {
             mutableStateOf("")
@@ -132,7 +136,16 @@ fun StatisticScreen(viewModel: MainScreenViewModel) {
         Spacer(modifier = Modifier.height(10.dp))
         LazyColumn() {
             items(expanseListData.value) { expanse ->
-                expanseItem(expanse = expanse) {}
+                expanseItem(expanse = expanse, isExpanded = expanse.id == expandedItemId,
+                    onToggle = {
+                        expandedItemId = if (expanse.id == expandedItemId) null else expanse.id
+                    }, onClick = {
+                        navController.currentBackStackEntry?.savedStateHandle?.set(
+                            RouteBackStackKey.Expense.key,
+                            expanse
+                        ) // new
+                        navController.navigate(ScreenRoute.ExpenseDetailScreen.route)
+                    })
             }
         }
     }
