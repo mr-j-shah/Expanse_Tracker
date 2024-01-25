@@ -11,10 +11,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.crestinfosystems_jinay.expancetracker.data.Expanse
 import com.crestinfosystems_jinay.expancetracker.screens.AddUpdataeDetail
+import com.crestinfosystems_jinay.expancetracker.screens.CategoryExpenseList
 import com.crestinfosystems_jinay.expancetracker.screens.ExpanseDetailScreen
 import com.crestinfosystems_jinay.expancetracker.screens.HomeScreen
 import com.crestinfosystems_jinay.expancetracker.screens.WishListScreen
-import com.crestinfosystems_jinay.expancetracker.screens.splashScreen
+
 import com.crestinfosystems_jinay.expancetracker.viewModel.MainScreenViewModel
 
 @Composable
@@ -31,9 +32,6 @@ fun Navigation() {
             // you can change whatever you want transition
             ExitTransition.None
         }) {
-//        composable(route = ScreenRoute.SplashScreen.route) {
-//            splashScreen(navController = navController)
-//        }
         composable(route = ScreenRoute.HomeScreen.route) {
             HomeScreen(viewModel, navController = navController)
         }
@@ -63,7 +61,29 @@ fun Navigation() {
                         date = "null",
                         category = ""
                     )
-            ExpanseDetailScreen(expanse = expanse, viewModel = viewModel,navController = navController)
+            ExpanseDetailScreen(
+                expanse = expanse,
+                viewModel = viewModel,
+                navController = navController
+            )
+        }
+        composable(ScreenRoute.CategoryViseExpense.route + "/{category}",
+            arguments = listOf(
+                navArgument("category") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                    nullable = false
+                }
+            )) {
+            val category = if (it.arguments != null) it.arguments!!.getString("category") else ""
+//            val category: String =
+//                navController.previousBackStackEntry?.savedStateHandle?.get(RouteBackStackKey.Category.key)
+//                    ?: ""
+            CategoryExpenseList(
+                viewModel = viewModel,
+                category = category?:"",
+                navController = navController
+            )
         }
     }
 }

@@ -2,6 +2,7 @@ package com.crestinfosystems_jinay.expancetracker.widgets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -23,7 +24,7 @@ import com.crestinfosystems_jinay.expancetracker.utils.ColorUtils
 import com.crestinfosystems_jinay.expancetracker.utils.ComposeUtils
 
 @Composable
-fun CategoryTile(imageId: Int, title: String) {
+fun CategoryTile(imageId: Int, title: String,onTap:()->Unit={}) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -32,7 +33,9 @@ fun CategoryTile(imageId: Int, title: String) {
                 baseWidth = 90.dp,
                 baseHeight = 90.dp
             )
-        )
+        ).clickable {
+            onTap()
+        }
     ) {
         Image(
             painter = painterResource(imageId),

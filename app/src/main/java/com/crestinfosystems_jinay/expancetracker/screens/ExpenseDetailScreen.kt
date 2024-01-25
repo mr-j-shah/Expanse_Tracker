@@ -237,9 +237,9 @@ fun ExpanseDetailScreen(
                 OutlinedTextField(
                     enabled = enableToChange,
                     singleLine = true,
-                    value = expanse.title,
+                    value = changeTitle,
                     onValueChange = {
-
+                        changeTitle=it
                     },
                     label = { Text(text = "Title", color = ColorUtils.textColor) },
                     textStyle = TextStyle(
@@ -282,7 +282,17 @@ fun ExpanseDetailScreen(
                     Spacer(modifier = Modifier.height(15.dp))
                     Button(
                         onClick = {
-
+                            viewModel.updateExpanse(
+                                expanse.copy(
+                                    title = changeTitle,
+                                    des = changeDes
+                                )
+                            )
+                            snackMessage.value = "Expense has been Deleted"
+                            scope.launch {
+                                scffoldState.snackbarHostState.showSnackbar(snackMessage.value)
+                                navController.popBackStack()
+                            }
                         },
                         modifier = Modifier
                             .fillMaxWidth()

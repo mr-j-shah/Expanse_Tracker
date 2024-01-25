@@ -1,5 +1,8 @@
 package com.crestinfosystems_jinay.expancetracker.widgets
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -44,7 +47,12 @@ fun expanseItem(expanse: Expanse, onClick: () -> Unit, isExpanded: Boolean, onTo
             .padding(top = 5.dp, start = 8.dp, end = 8.dp)
             .clickable {
                 onClick()
-            },
+            }.animateContentSize(
+            animationSpec = tween(
+                durationMillis = 300,
+                easing = LinearOutSlowInEasing
+            )
+        ),
         elevation = 10.dp,
         backgroundColor = ColorUtils.secondaryBakgroundColor
     ) {
@@ -154,7 +162,7 @@ fun expanseItem(expanse: Expanse, onClick: () -> Unit, isExpanded: Boolean, onTo
             }
             if (isExpanded) {
                 Text(
-                    "Additional content for ${expanse.des}", modifier = Modifier
+                    expanse.des, modifier = Modifier
                         .padding(16.dp),
                     color = ColorUtils.textColor,
 

@@ -55,7 +55,7 @@ fun navigationBarView(mainScreenVM: MainScreenViewModel) {
                 Icon(
                     painter = painterResource(id = R.drawable.home),
                     contentDescription = null,
-                    tint = ColorUtils.textColor,
+                    tint = ColorUtils.subTextColor,
                     modifier = Modifier.then(
                         ComposeUtils.modifyDimensionsBasedOnScreenSize(
                             baseWidth = iconWidth.dp,
@@ -90,7 +90,7 @@ fun navigationBarView(mainScreenVM: MainScreenViewModel) {
                 Icon(
                     painter = painterResource(id = R.drawable.add),
                     contentDescription = null,
-                    tint = ColorUtils.textColor,
+                    tint = ColorUtils.subTextColor,
                     modifier = Modifier.then(
                         ComposeUtils.modifyDimensionsBasedOnScreenSize(
                             baseWidth = iconWidth.dp,
@@ -124,7 +124,7 @@ fun navigationBarView(mainScreenVM: MainScreenViewModel) {
                 Icon(
                     painter = painterResource(id = R.drawable.trend),
                     contentDescription = null,
-                    tint = ColorUtils.textColor,
+                    tint = ColorUtils.subTextColor,
                     modifier = Modifier.then(
                         ComposeUtils.modifyDimensionsBasedOnScreenSize(
                             baseWidth = iconWidth.dp,

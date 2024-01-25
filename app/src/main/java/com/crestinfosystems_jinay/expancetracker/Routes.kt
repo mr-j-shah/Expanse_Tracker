@@ -6,9 +6,12 @@ sealed class ScreenRoute(val route:String) {
     object SplashScreen :ScreenRoute("SplashScreen")
     object AddWishScreen :ScreenRoute("AddWishScreen")
     object ExpenseDetailScreen :ScreenRoute("ExpenseDetailScreen")
+    object CategoryViseExpense :ScreenRoute("CategoryViseExpense")
 
 }
 
 sealed class RouteBackStackKey(val key:String){
     object Expense : RouteBackStackKey("Expense")
+    object Category : RouteBackStackKey("Category")
+
 }

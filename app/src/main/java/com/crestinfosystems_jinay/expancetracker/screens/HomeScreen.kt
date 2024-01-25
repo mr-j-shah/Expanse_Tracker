@@ -63,9 +63,9 @@ fun HomeScreen(mainScreenVM: MainScreenViewModel, navController: NavController) 
                 DrawerTile(id = R.drawable.wish_list, onClick = {
                     navController.navigate(ScreenRoute.WishList.route)
                 }, title = "Wish List")
-                DrawerTile(id = R.drawable.delete, onClick = {
-//                    mainScreenVM.deleteAll()
-                }, title = "Delete All Expanse")
+//                DrawerTile(id = R.drawable.delete, onClick = {
+////                    mainScreenVM.deleteAll()
+//                }, title = "Delete All Expanse")
 
             }
         },
@@ -84,7 +84,7 @@ fun HomeScreen(mainScreenVM: MainScreenViewModel, navController: NavController) 
     ) { it ->
         Column(modifier = Modifier.padding(it)) {
             when (mainScreenVM.screen.value.screenState) {
-                MainScreenWidget.Dashboard -> DashboardScreen(viewModel = mainScreenVM)
+                MainScreenWidget.Dashboard -> DashboardScreen(viewModel = mainScreenVM,navController)
                 MainScreenWidget.Add -> AddExpanse(viewModel = mainScreenVM)
                 MainScreenWidget.Stetestic -> StatisticScreen(viewModel = mainScreenVM, navController = navController)
             }

@@ -40,6 +40,11 @@ class MainScreenViewModel(
             expanseRepo.updateWish(wish)
         }
     }
+    fun updateExpanse(expanse: Expanse){
+        viewModelScope.launch(Dispatchers.IO) {
+            expanseRepo.updateExpanse(expanse)
+        }
+    }
     data class ScreenState(
         val screenState: MainScreenWidget = MainScreenWidget.Dashboard,
     )
