@@ -11,18 +11,21 @@ import kotlinx.parcelize.Parcelize
 @Entity("expanse-table")
 data class Expanse(
     @PrimaryKey(autoGenerate = true)
-    val id:Long = 0,
+    val id: Long = 0,
     @ColumnInfo("title")
-    val title:String,
+    val title: String,
     @ColumnInfo("desc")
-    val des:String,
+    val des: String,
     @ColumnInfo("amount")
-    val amount:Float,
+    val amount: Float,
     @ColumnInfo("date")
-    val date:String,
+    val date: String,
     @ColumnInfo("category")
-    val category: String
-):Parcelable
+    val category: String,
+    @ColumnInfo("mode")
+    val mode: String
+) : Parcelable
+
 @Entity(tableName = "Wish-List")
 data class Wish(
     @PrimaryKey(autoGenerate = true)
@@ -32,5 +35,5 @@ data class Wish(
     @ColumnInfo(name = "wishTitle")
     val title: String = "",
     @ColumnInfo(name = "isComplete")
-    val isDone :Boolean = false
+    val isDone: Boolean = false
 )

@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.crestinfosystems_jinay.expancetracker.data.Expanse
+import com.crestinfosystems_jinay.expancetracker.model.PaymentMode
 import com.crestinfosystems_jinay.expancetracker.screens.AddUpdataeDetail
 import com.crestinfosystems_jinay.expancetracker.screens.CategoryExpenseList
 import com.crestinfosystems_jinay.expancetracker.screens.ExpanseDetailScreen
@@ -60,7 +61,7 @@ fun Navigation() {
                         des = "Null",
                         0F,
                         date = "null",
-                        category = ""
+                        category = "", mode = PaymentMode.Cash.name
                     )
             ExpanseDetailScreen(
                 expanse = expanse,

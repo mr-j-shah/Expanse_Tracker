@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [Expanse::class, Wish::class],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class ExpanseDatabase : RoomDatabase() {

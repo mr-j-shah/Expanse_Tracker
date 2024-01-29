@@ -27,6 +27,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -35,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.crestinfosystems_jinay.expancetracker.R
 import com.crestinfosystems_jinay.expancetracker.data.Expanse
+import com.crestinfosystems_jinay.expancetracker.model.PaymentMode
 import com.crestinfosystems_jinay.expancetracker.utils.ColorUtils
 import com.crestinfosystems_jinay.expancetracker.utils.ComposeUtils
 
@@ -47,12 +49,13 @@ fun expanseItem(expanse: Expanse, onClick: () -> Unit, isExpanded: Boolean, onTo
             .padding(top = 5.dp, start = 8.dp, end = 8.dp)
             .clickable {
                 onClick()
-            }.animateContentSize(
-            animationSpec = tween(
-                durationMillis = 300,
-                easing = LinearOutSlowInEasing
-            )
-        ),
+            }
+            .animateContentSize(
+                animationSpec = tween(
+                    durationMillis = 300,
+                    easing = LinearOutSlowInEasing
+                )
+            ),
         elevation = 10.dp,
         backgroundColor = ColorUtils.secondaryBakgroundColor
     ) {
@@ -91,13 +94,33 @@ fun expanseItem(expanse: Expanse, onClick: () -> Unit, isExpanded: Boolean, onTo
                                 )
                             ), verticalArrangement = Arrangement.Center
                         ) {
-                            Text(
-                                text = expanse.title,
-                                fontWeight = FontWeight.ExtraBold,
-                                textAlign = TextAlign.Justify,
-                                fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 20F).sp,
-                                color = ColorUtils.textColor
-                            )
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(
+                                    text = expanse.title,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    textAlign = TextAlign.Justify,
+                                    fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(baseSize = 20F).sp,
+                                    color = ColorUtils.textColor
+                                )
+                                Icon(
+                                    painter = painterResource(id = R.drawable.dot),
+                                    contentDescription = "",
+//            tint = Color(0xFF4CAF50)color,
+                                    tint = when (expanse.mode) {
+                                        PaymentMode.UPI.name -> ColorUtils.UPI
+                                        PaymentMode.DebitCard.name -> ColorUtils.DebitCard
+                                        PaymentMode.CreditCard.name -> ColorUtils.creditCard
+                                        PaymentMode.Cash.name -> ColorUtils.cash
+                                        else -> ColorUtils.cash
+                                    },
+                                    modifier = Modifier.then(
+                                        ComposeUtils.modifyDimensionsBasedOnScreenSize(
+                                            baseWidth = 32.dp,
+                                            baseHeight = 32.dp
+                                        )
+                                    ),
+                                )
+                            }
                             Spacer(modifier = Modifier.height(5.dp))
                             Text(
                                 text = expanse.date.toString(),
@@ -162,7 +185,8 @@ fun expanseItem(expanse: Expanse, onClick: () -> Unit, isExpanded: Boolean, onTo
             }
             if (isExpanded) {
                 Text(
-                    expanse.des, modifier = Modifier
+                    expanse.des,
+                    modifier = Modifier
                         .padding(16.dp),
                     color = ColorUtils.textColor,
 

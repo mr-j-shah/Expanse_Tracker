@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.crestinfosystems_jinay.expancetracker.data.Expanse
 import com.crestinfosystems_jinay.expancetracker.model.MainScreenWidget
+import com.crestinfosystems_jinay.expancetracker.model.PaymentMode
 import com.crestinfosystems_jinay.expancetracker.utils.ColorUtils
 import com.crestinfosystems_jinay.expancetracker.utils.ComposeUtils
 import com.crestinfosystems_jinay.expancetracker.viewModel.MainScreenViewModel
@@ -85,40 +86,46 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
     val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.ROOT)
     val context = LocalContext.current
 
+    //Category of Expense
     val categoryList =
         arrayOf("Home Product", "EMIs/Bills", "Gifts", "Travelling", "Festival", "Fashion")
     var expanded by remember { mutableStateOf(false) }
     var category by remember { mutableStateOf(categoryList[0]) }
+
+    //Payment Mode Options
+    val paymentModeList = arrayOf(
+        PaymentMode.Cash.name,
+        PaymentMode.CreditCard.name,
+        PaymentMode.DebitCard.name,
+        PaymentMode.UPI.name,
+    )
+    var expandedPaymentMode by remember { mutableStateOf(false) }
+    var paymentMode by remember { mutableStateOf(paymentModeList[0]) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(
                 rememberScrollState(),
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally
+            ), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (showDatePicker) {
-            DatePickerDialog(
-                onDismissRequest = {
+            DatePickerDialog(onDismissRequest = {
+                showDatePicker = false
+            }, confirmButton = {
+                TextButton(onClick = {
                     showDatePicker = false
-                },
-                confirmButton = {
-                    TextButton(onClick = {
-                        showDatePicker = false
-                        selectedDate = state.selectedDateMillis!!
-                    }) {
-                        Text(text = "Confirm")
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = {
-                        showDatePicker = false
-                    }) {
-                        Text(text = "Cancel")
-                    }
+                    selectedDate = state.selectedDateMillis!!
+                }) {
+                    Text(text = "Confirm")
                 }
-            ) {
+            }, dismissButton = {
+                TextButton(onClick = {
+                    showDatePicker = false
+                }) {
+                    Text(text = "Cancel")
+                }
+            }) {
                 DatePicker(
                     state = state
                 )
@@ -188,25 +195,21 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
                 value = category,
                 onValueChange = {},
                 label = { Text(text = "Category", color = ColorUtils.textColor) },
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 textStyle = TextStyle(
                     fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(
                         baseSize = 14F
                     ).sp,
                 ),
                 trailingIcon = {
-                    IconButton(
-                        onClick = { expanded = true },
+                    IconButton(onClick = { expanded = true },
                         modifier = Modifier.clearAndSetSemantics { }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowDropDown,
                             contentDescription = "",
                             modifier = Modifier.rotate(
-                                if (expanded)
-                                    180f
-                                else
-                                    360f
+                                if (expanded) 180f
+                                else 360f
                             ),
                             tint = ColorUtils.textColor
                         )
@@ -230,13 +233,72 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 categoryList.forEach { item ->
-                    DropdownMenuItem(
-                        text = { Text(text = item) },
-                        onClick = {
-                            category = item
-                            expanded = false
-                        }
-                    )
+                    DropdownMenuItem(text = { Text(text = item) }, onClick = {
+                        category = item
+                        expanded = false
+                    })
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(15.dp))
+        ExposedDropdownMenuBox(
+            expanded = expandedPaymentMode,
+            onExpandedChange = {
+                expandedPaymentMode = !expandedPaymentMode
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 15.dp)
+                .align(Alignment.CenterHorizontally),
+        ) {
+            OutlinedTextField(
+                readOnly = true,
+                singleLine = true,
+                value = paymentMode,
+                onValueChange = {},
+                label = { Text(text = "Payment Mode", color = ColorUtils.textColor) },
+                modifier = Modifier.fillMaxWidth(),
+                textStyle = TextStyle(
+                    fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(
+                        baseSize = 14F
+                    ).sp,
+                ),
+                trailingIcon = {
+                    IconButton(onClick = { expandedPaymentMode = true },
+                        modifier = Modifier.clearAndSetSemantics { }) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowDropDown,
+                            contentDescription = "",
+                            modifier = Modifier.rotate(
+                                if (expanded) 180f
+                                else 360f
+                            ),
+                            tint = ColorUtils.textColor
+                        )
+                    }
+                },
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    disabledBorderColor = ColorUtils.secondaryBakgroundColor,
+                    disabledTextColor = ColorUtils.textColor,
+                    textColor = ColorUtils.textColor,
+                    focusedBorderColor = ColorUtils.secondaryBakgroundColor,
+                    focusedLabelColor = ColorUtils.secondaryBakgroundColor,
+                    unfocusedBorderColor = ColorUtils.secondaryBakgroundColor,
+                    unfocusedLabelColor = ColorUtils.secondaryBakgroundColor,
+                    cursorColor = ColorUtils.secondaryBakgroundColor
+                ),
+                shape = RoundedCornerShape(15.dp),
+            )
+            ExposedDropdownMenu(
+                expanded = expandedPaymentMode,
+                onDismissRequest = { expandedPaymentMode = false },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                paymentModeList.forEach { item ->
+                    DropdownMenuItem(text = { Text(text = item) }, onClick = {
+                        paymentMode = item
+                        expandedPaymentMode = false
+                    })
                 }
             }
         }
@@ -250,6 +312,7 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
                         amount = amount.toFloat(),
                         date = formatter.format(Date(selectedDate)),
                         category = category,
+                        mode = paymentMode
                     )
                 )
                 Toast.makeText(context, "Expense Added Successfully", Toast.LENGTH_SHORT).show()
@@ -263,9 +326,7 @@ fun AddExpanse(viewModel: MainScreenViewModel) {
             colors = ButtonDefaults.buttonColors(backgroundColor = ColorUtils.secondaryBakgroundColor)
         ) {
             Text(
-                "Add",
-                color = Color.White,
-                style = TextStyle(fontSize = 18.sp)
+                "Add", color = Color.White, style = TextStyle(fontSize = 18.sp)
             )
         }
     }
