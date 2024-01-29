@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.DrawerValue
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
@@ -17,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalContext
@@ -77,11 +75,15 @@ fun HomeScreen(mainScreenVM: MainScreenViewModel, navController: NavController) 
                 }, title = "Financial Palette")
 
                 DrawerTile(id = R.drawable.user_manual, onClick = {
-
+                    navController.navigate(ScreenRoute.UserManualScreen.route)
                 }, title = "User Manual")
+                DrawerTile(id = R.drawable.faq, onClick = {
+                      navController.navigate(ScreenRoute.FAQsScreen.route)
+                }, title = "FAQs")
                 DrawerTile(id = R.drawable.software_developer, onClick = {
+                    navController.navigate(ScreenRoute.CustomerSupport.route)
 
-                }, title = "Developer")
+                }, title = "Contact Support")
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
                     text = "App Version: $versionName",

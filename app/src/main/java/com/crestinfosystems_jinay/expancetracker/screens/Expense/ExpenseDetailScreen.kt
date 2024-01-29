@@ -1,4 +1,4 @@
-package com.crestinfosystems_jinay.expancetracker.screens
+package com.crestinfosystems_jinay.expancetracker.screens.Expense
 
 import android.widget.Toast
 import androidx.compose.animation.animateColorAsState

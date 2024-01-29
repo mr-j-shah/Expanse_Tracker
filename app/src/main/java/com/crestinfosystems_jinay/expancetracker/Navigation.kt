@@ -11,12 +11,15 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.crestinfosystems_jinay.expancetracker.data.Expanse
 import com.crestinfosystems_jinay.expancetracker.model.PaymentMode
-import com.crestinfosystems_jinay.expancetracker.screens.AddUpdataeDetail
-import com.crestinfosystems_jinay.expancetracker.screens.CategoryExpenseList
-import com.crestinfosystems_jinay.expancetracker.screens.ExpanseDetailScreen
-import com.crestinfosystems_jinay.expancetracker.screens.FinancialPalette
+import com.crestinfosystems_jinay.expancetracker.screens.WishList.AddUpdataeDetail
+import com.crestinfosystems_jinay.expancetracker.screens.Expense.CategoryExpenseList
+import com.crestinfosystems_jinay.expancetracker.screens.Expense.ExpanseDetailScreen
+import com.crestinfosystems_jinay.expancetracker.screens.drawerScreens.FAQs
+import com.crestinfosystems_jinay.expancetracker.screens.drawerScreens.FinancialPalette
 import com.crestinfosystems_jinay.expancetracker.screens.HomeScreen
-import com.crestinfosystems_jinay.expancetracker.screens.WishListScreen
+import com.crestinfosystems_jinay.expancetracker.screens.drawerScreens.UserManual
+import com.crestinfosystems_jinay.expancetracker.screens.WishList.WishListScreen
+import com.crestinfosystems_jinay.expancetracker.screens.drawerScreens.CustomerSupport
 
 import com.crestinfosystems_jinay.expancetracker.viewModel.MainScreenViewModel
 
@@ -89,6 +92,15 @@ fun Navigation() {
         }
         composable(ScreenRoute.FinancialPaletteScreen.route){
             FinancialPalette(navController = navController)
+        }
+        composable(ScreenRoute.UserManualScreen.route){
+            UserManual(navController = navController)
+        }
+        composable(ScreenRoute.FAQsScreen.route){
+            FAQs(navController = navController)
+        }
+        composable(ScreenRoute.CustomerSupport.route){
+            CustomerSupport(navController = navController)
         }
     }
 }

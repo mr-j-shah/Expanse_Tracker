@@ -1,4 +1,4 @@
-package com.crestinfosystems_jinay.expancetracker.screens
+package com.crestinfosystems_jinay.expancetracker.screens.WishList
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
