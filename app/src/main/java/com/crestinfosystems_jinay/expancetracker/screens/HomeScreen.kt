@@ -3,6 +3,7 @@ package com.crestinfosystems_jinay.expancetracker.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,6 +20,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Outline
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
@@ -39,6 +41,10 @@ import kotlinx.coroutines.launch
 fun HomeScreen(mainScreenVM: MainScreenViewModel, navController: NavController) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+    val versionName = packageInfo.versionName
+
 
     Scaffold(
         topBar = {
@@ -66,7 +72,24 @@ fun HomeScreen(mainScreenVM: MainScreenViewModel, navController: NavController) 
 //                DrawerTile(id = R.drawable.delete, onClick = {
 ////                    mainScreenVM.deleteAll()
 //                }, title = "Delete All Expanse")
+                DrawerTile(id = R.drawable.payment_method, onClick = {
+                    navController.navigate(ScreenRoute.FinancialPaletteScreen.route)
+                }, title = "Financial Palette")
 
+                DrawerTile(id = R.drawable.user_manual, onClick = {
+
+                }, title = "User Manual")
+                DrawerTile(id = R.drawable.software_developer, onClick = {
+
+                }, title = "Developer")
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = "App Version: $versionName",
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    color = ColorUtils.subTextColor
+                )
             }
         },
         scaffoldState = scaffoldState,
@@ -84,9 +107,16 @@ fun HomeScreen(mainScreenVM: MainScreenViewModel, navController: NavController) 
     ) { it ->
         Column(modifier = Modifier.padding(it)) {
             when (mainScreenVM.screen.value.screenState) {
-                MainScreenWidget.Dashboard -> DashboardScreen(viewModel = mainScreenVM,navController)
+                MainScreenWidget.Dashboard -> DashboardScreen(
+                    viewModel = mainScreenVM,
+                    navController
+                )
+
                 MainScreenWidget.Add -> AddExpanse(viewModel = mainScreenVM)
-                MainScreenWidget.Stetestic -> StatisticScreen(viewModel = mainScreenVM, navController = navController)
+                MainScreenWidget.Stetestic -> StatisticScreen(
+                    viewModel = mainScreenVM,
+                    navController = navController
+                )
             }
         }
     }

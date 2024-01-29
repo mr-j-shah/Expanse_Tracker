@@ -7,6 +7,7 @@ sealed class ScreenRoute(val route:String) {
     object AddWishScreen :ScreenRoute("AddWishScreen")
     object ExpenseDetailScreen :ScreenRoute("ExpenseDetailScreen")
     object CategoryViseExpense :ScreenRoute("CategoryViseExpense")
+    object FinancialPaletteScreen : ScreenRoute("FinancialPaletteScreen")
 
 }
 

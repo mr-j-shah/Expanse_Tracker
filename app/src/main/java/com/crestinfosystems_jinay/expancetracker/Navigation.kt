@@ -13,6 +13,7 @@ import com.crestinfosystems_jinay.expancetracker.data.Expanse
 import com.crestinfosystems_jinay.expancetracker.screens.AddUpdataeDetail
 import com.crestinfosystems_jinay.expancetracker.screens.CategoryExpenseList
 import com.crestinfosystems_jinay.expancetracker.screens.ExpanseDetailScreen
+import com.crestinfosystems_jinay.expancetracker.screens.FinancialPalette
 import com.crestinfosystems_jinay.expancetracker.screens.HomeScreen
 import com.crestinfosystems_jinay.expancetracker.screens.WishListScreen
 
@@ -84,6 +85,9 @@ fun Navigation() {
                 category = category?:"",
                 navController = navController
             )
+        }
+        composable(ScreenRoute.FinancialPaletteScreen.route){
+            FinancialPalette(navController = navController)
         }
     }
 }

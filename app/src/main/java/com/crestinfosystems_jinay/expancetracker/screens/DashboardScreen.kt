@@ -2,8 +2,6 @@ package com.crestinfosystems_jinay.expancetracker.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 
@@ -16,7 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
@@ -25,8 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -36,14 +31,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.crestinfosystems_jinay.expancetracker.R
-import com.crestinfosystems_jinay.expancetracker.RouteBackStackKey
 import com.crestinfosystems_jinay.expancetracker.ScreenRoute
 import com.crestinfosystems_jinay.expancetracker.utils.ColorUtils
 import com.crestinfosystems_jinay.expancetracker.utils.ComposeUtils
 import com.crestinfosystems_jinay.expancetracker.viewModel.MainScreenViewModel
 import com.crestinfosystems_jinay.expancetracker.widgets.CategoryTile
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun DashboardScreen(viewModel: MainScreenViewModel,navController: NavController) {
