@@ -11,6 +11,7 @@ sealed class ScreenRoute(val route:String) {
     object UserManualScreen : ScreenRoute("UserManualScreen")
     object FAQsScreen : ScreenRoute("FAQsScreen")
     object CustomerSupport : ScreenRoute("CustomerSupport")
+    object Settings : ScreenRoute("Settings")
 
 }
 

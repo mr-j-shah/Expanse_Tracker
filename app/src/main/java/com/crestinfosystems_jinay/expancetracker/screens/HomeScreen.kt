@@ -78,7 +78,7 @@ fun HomeScreen(mainScreenVM: MainScreenViewModel, navController: NavController) 
                     navController.navigate(ScreenRoute.UserManualScreen.route)
                 }, title = "User Manual")
                 DrawerTile(id = R.drawable.settings, onClick = {
-
+                    navController.navigate(ScreenRoute.Settings.route)
                 }, title = "Settings")
                 DrawerTile(id = R.drawable.faq, onClick = {
                       navController.navigate(ScreenRoute.FAQsScreen.route)

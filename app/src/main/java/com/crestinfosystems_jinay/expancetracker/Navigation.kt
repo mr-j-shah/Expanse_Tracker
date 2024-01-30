@@ -20,6 +20,7 @@ import com.crestinfosystems_jinay.expancetracker.screens.HomeScreen
 import com.crestinfosystems_jinay.expancetracker.screens.drawerScreens.UserManual
 import com.crestinfosystems_jinay.expancetracker.screens.WishList.WishListScreen
 import com.crestinfosystems_jinay.expancetracker.screens.drawerScreens.CustomerSupport
+import com.crestinfosystems_jinay.expancetracker.screens.drawerScreens.SettingsScreen
 
 import com.crestinfosystems_jinay.expancetracker.viewModel.MainScreenViewModel
 
@@ -101,6 +102,9 @@ fun Navigation() {
         }
         composable(ScreenRoute.CustomerSupport.route){
             CustomerSupport(navController = navController)
+        }
+        composable(ScreenRoute.Settings.route){
+            SettingsScreen(navController = navController,viewModel = viewModel)
         }
     }
 }
