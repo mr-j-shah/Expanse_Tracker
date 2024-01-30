@@ -1,5 +1,6 @@
 package com.crestinfosystems_jinay.expancetracker.screens.drawerScreens
 
+import android.content.Intent
 import android.icu.text.CaseMap.Title
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,11 +26,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
+import com.crestinfosystems_jinay.expancetracker.Pin
 import com.crestinfosystems_jinay.expancetracker.R
 import com.crestinfosystems_jinay.expancetracker.ScreenRoute
 import com.crestinfosystems_jinay.expancetracker.utils.ColorUtils
@@ -40,6 +44,7 @@ import com.crestinfosystems_jinay.expancetracker.widgets.AppBar
 
 @Composable
 fun SettingsScreen(navController: NavController, viewModel: MainScreenViewModel) {
+    val context = LocalContext.current
     val DeleteAllAleartDialog = remember {
         mutableStateOf(
             false
@@ -60,9 +65,17 @@ fun SettingsScreen(navController: NavController, viewModel: MainScreenViewModel)
                 .fillMaxSize()
         ) {
             SettingTile(id = R.drawable.delete, onClick = {
-//                    mainScreenVM.deleteAll()
                 DeleteAllAleartDialog.value = true
             }, title = "Delete All Expanse")
+            SettingTile(id = R.drawable.reset_password, onClick = {
+
+                val intent = Intent(
+                    context,
+                    Pin::class.java
+                )
+                intent.putExtra("Screen", "setPin")
+                startActivity(context, intent, null)
+            }, title = "Change App PIN")
         }
 
     }

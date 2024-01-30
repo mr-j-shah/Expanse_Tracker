@@ -70,7 +70,8 @@ dependencies {
 
     // Lottie Animation
     implementation ("com.airbnb.android:lottie-compose:4.2.0")
-
+    //Sharder Prefrances
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation("androidx.compose.ui:ui:$compose_version")
     implementation("androidx.compose.material:material:$compose_version")

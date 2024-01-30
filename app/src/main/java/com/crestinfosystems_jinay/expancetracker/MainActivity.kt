@@ -66,7 +66,9 @@ class MainActivity : ComponentActivity() {
         LaunchedEffect(key1 = true){
             alpha.animateTo(1f, animationSpec = tween(1500))
             delay(2000)
-            startActivity(Intent(this@MainActivity,Pin::class.java))
+            val intent = Intent(this@MainActivity,Pin::class.java)
+            intent.putExtra("Screen","enterPin")
+            startActivity(intent)
             this@MainActivity.finish()
         }
         Column(

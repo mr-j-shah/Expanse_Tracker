@@ -12,6 +12,7 @@ object ColorUtils {
     val subTextColor = Color(0xFFADB5BD)
     val primaryBackGroundColor = Color(0xFF152033)
     val secondaryBakgroundColor = Color(0xFF475265)
+    val bottomSheetBackgroundColor = Color(0xFF9DA0A5)
     val transparent = Color.Transparent
 
     // Payment Mode Color Palette
