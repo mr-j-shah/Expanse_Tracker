@@ -54,6 +54,8 @@ android {
 dependencies {
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
     val nav_version = "2.7.5"
@@ -66,7 +68,8 @@ dependencies {
     implementation("androidx.room:room-ktx:$room")
     kapt("androidx.room:room-compiler:$room")
 
-
+    // Lottie Animation
+    implementation ("com.airbnb.android:lottie-compose:4.2.0")
 
     implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation("androidx.compose.ui:ui:$compose_version")
