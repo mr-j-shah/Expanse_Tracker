@@ -46,6 +46,22 @@ fun FAQs(navController: NavController) {
                 question = "Can I change the default categories?",
                 ans = "No, You can't modify the predefined categories."
             )
+            QATile(
+                question = "Is my financial data secure in the Expense Tracker App?",
+                ans = "Yes, we prioritize the security and privacy of your financial information. The app uses a SQLite Database to store a data inside mobile, and we do not store any sensitive information on external servers."
+            )
+            QATile(
+                question = "What features are available in the Expense Tracker App?",
+                ans = "The app includes features such as expense categorization and real-time expense tracking. Additionally, it provides a user-friendly dashboard for a quick overview of your financial status."
+            )
+            QATile(
+                question = "Is the Expense Tracker App free to use?",
+                ans = "Yes, the basic version of the Expense Tracker App is free to use, offering essential features for expense tracking."
+            )
+            QATile(
+                question = "How do I contact customer support?",
+                ans = "For any questions, concerns, or technical issues, please reach out to our customer support team via the \"Contact Support\" section within the app."
+            )
             Spacer(modifier = Modifier.height(10.dp))
         }
     }
@@ -65,7 +81,7 @@ fun QATile(question: String, ans: String) {
             Row() {
                 Text(
                     text = "Q.",
-                    color = ColorUtils.subTextColor,
+                    color = ColorUtils.textColor,
                     textAlign = TextAlign.Justify,
                     fontFamily = FontFamily.SansSerif,
                     fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(
@@ -75,7 +91,7 @@ fun QATile(question: String, ans: String) {
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
                     text = question,
-                    color = ColorUtils.subTextColor,
+                    color = ColorUtils.textColor,
                     textAlign = TextAlign.Justify,
                     fontFamily = FontFamily.SansSerif,
                     fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(

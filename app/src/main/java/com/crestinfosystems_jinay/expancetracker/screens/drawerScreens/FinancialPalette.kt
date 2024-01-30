@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -48,33 +49,33 @@ fun FinancialPalette(navController: NavController) {
                 color = Color(0xFF4CAF50),
                 title = "1. UPI (Unified Payments Interface):",
                 colorname = "Green",
-                desciption = "Green is often associated with positive actions, success, and safety.\n" +
-                        "In many cultures, green signifies \"go\" or approval, making it suitable for a successful payment.\n" +
-                        "Green is commonly used in financial and banking applications to convey a sense of trust and reliability."
+                desciption = listOf("Green is often associated with positive actions, success, and safety." ,
+                        "In many cultures, green signifies \"go\" or approval, making it suitable for a successful payment." ,
+                        "Green is commonly used in financial and banking applications to convey a sense of trust and reliability.")
             )
             FinancialColorPaletteTile(
                 color = Color(0xFF3498DB),
                 title = "2. Debit Card:",
                 colorname = "Blue",
-                desciption = "Blue is associated with stability, trust, and security.\n" +
-                        "It's a widely used color in the banking and financial sector, creating a sense of reliability.\n" +
-                        "Blue is often seen as a calming and trustworthy color, which aligns well with financial transactions."
+                desciption = listOf("Blue is associated with stability, trust, and security." ,
+                        "It's a widely used color in the banking and financial sector, creating a sense of reliability.",
+                        "Blue is often seen as a calming and trustworthy color, which aligns well with financial transactions.")
             )
             FinancialColorPaletteTile(
                 color = Color(0xFFFFA500),
                 title = "3. Credit Card:",
                 colorname = "Orange",
-                desciption = "Orange is associated with enthusiasm, energy, and creativity.\n" +
-                        "Credit cards often represent spending and rewards, and orange can evoke a sense of excitement.\n" +
-                        "It provides a distinct visual identity compared to debit cards while maintaining a positive and vibrant feel."
+                desciption = listOf("Orange is associated with enthusiasm, energy, and creativity." ,
+                        "Credit cards often represent spending and rewards, and orange can evoke a sense of excitement." ,
+                        "It provides a distinct visual identity compared to debit cards while maintaining a positive and vibrant feel.")
             )
             FinancialColorPaletteTile(
                 color = Color(0xFF8D6E63),
                 title = "4. Cash:",
                 colorname = "Bison Hide",
-                desciption = "Warm and Earthy: The warm and earthy tones of Bison Hide evoke a sense of reliability and groundedness, which can be associated with physical cash. It provides a traditional and tangible feel, reminiscent of natural elements.\n" +
-                        "Contrast on Dark Background: Against a dark background, #8D6E63 provides good contrast and readability. The slightly muted and subdued nature of this brown shade complements the overall dark theme while maintaining visibility.\n" +
-                        "Cultural Association: Brown is often associated with currency, leather, and other physical elements. This can resonate well with the concept of cash, which is a tangible form of currency."
+                desciption = listOf("Warm and Earthy: The warm and earthy tones of Bison Hide evoke a sense of reliability and groundedness, which can be associated with physical cash. It provides a traditional and tangible feel, reminiscent of natural elements.",
+                        "Contrast on Dark Background: Against a dark background, #8D6E63 provides good contrast and readability. The slightly muted and subdued nature of this brown shade complements the overall dark theme while maintaining visibility." ,
+                        "Cultural Association: Brown is often associated with currency, leather, and other physical elements. This can resonate well with the concept of cash, which is a tangible form of currency.")
             )
             Spacer(modifier = Modifier.height(10.dp))
         }
@@ -82,7 +83,8 @@ fun FinancialPalette(navController: NavController) {
 }
 
 @Composable
-fun FinancialColorPaletteTile(color: Color, title: String, desciption: String, colorname: String) {
+fun FinancialColorPaletteTile(color: Color, title: String, desciption: List<String>, colorname: String) {
+
     Card(
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier
@@ -129,17 +131,37 @@ fun FinancialColorPaletteTile(color: Color, title: String, desciption: String, c
                 )
             }
             Spacer(modifier = Modifier.height(5.dp))
-            Text(
-                text = desciption,
-                color = ColorUtils.subTextColor,
-                textAlign = TextAlign.Justify,
-                fontFamily = FontFamily.SansSerif,
-                fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(
-                    baseSize = 14F
-                ).sp,
-            )
+            for (text in desciption){
+                LineWithBulletinDot(text = text)
+            }
+
         }
     }
 
+}
+
+@Composable
+fun LineWithBulletinDot(text:String) {
+    Row(modifier = Modifier.padding(start = 6.dp)) {
+        Text(
+            text ="\u2022",
+            color = ColorUtils.subTextColor,
+            textAlign = TextAlign.Justify,
+            fontFamily = FontFamily.SansSerif,
+            fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(
+                baseSize = 14F
+            ).sp,
+        )
+        Spacer(modifier = Modifier.width(4.dp))
+        Text(
+            text = text,
+            color = ColorUtils.subTextColor,
+            textAlign = TextAlign.Justify,
+            fontFamily = FontFamily.SansSerif,
+            fontSize = ComposeUtils.modifyTextSizeBasedOnScreenSize(
+                baseSize = 14F
+            ).sp,
+        )
+    }
 }
 
