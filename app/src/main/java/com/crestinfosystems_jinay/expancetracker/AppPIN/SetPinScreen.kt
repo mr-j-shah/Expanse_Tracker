@@ -17,16 +17,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.material.Icon
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ProvideTextStyle
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.contentColorFor
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.outlined.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.ProvideTextStyle
-import androidx.compose.material3.Surface
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -153,7 +153,7 @@ fun SetPinScreen(navController: NavController, nextScreen: () -> Unit = {}) {
                 }
                 Text(
                     text = error.value,
-                    color = androidx.compose.material3.MaterialTheme.colorScheme.error,
+                    color = androidx.compose.material.MaterialTheme.colors.error,
                     modifier = Modifier.padding(16.dp)
                 )
 
@@ -300,7 +300,7 @@ fun PinKeyItem(
         shape = shape,
         color = backgroundColor,
         contentColor = contentColor,
-        tonalElevation = elevation,
+        elevation = elevation,
 
 //        role = Role.Button,
 //        indication = rememberRipple()
@@ -309,7 +309,7 @@ fun PinKeyItem(
             LocalContentAlpha provides contentColor.alpha
         ) {
             ProvideTextStyle(
-                androidx.compose.material3.MaterialTheme.typography.displayMedium
+                androidx.compose.material.MaterialTheme.typography.h3
             ) {
                 Box(
                     modifier = Modifier.defaultMinSize(minWidth = 64.dp, minHeight = 64.dp),
